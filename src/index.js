@@ -230,7 +230,7 @@ const buildUpdatedChart = async () => {
   };
   //console.log(chartData2);
 
-  chart = new Chart("#chart", {
+  const chart2 = new Chart("#chart", {
     title: "Population",
     data: chartData2,
     type: "line",
@@ -260,7 +260,7 @@ const buildUpdatedChart = async () => {
     let label = "2022";
     let valueFromEachDataset = [result];
 
-    chart.addDataPoint(label, valueFromEachDataset);
+    chart2.addDataPoint(label, valueFromEachDataset);
   }
 
   addDataButton.addEventListener("click", function () {
