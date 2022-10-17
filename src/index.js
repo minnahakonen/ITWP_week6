@@ -7,7 +7,7 @@ const inputField = document.getElementById("input-area");
 const addDataButton = document.getElementById("add-data");
 //const navigateLink = document.getElementById("navigation");
 const codeMap = new Map();
-let chart;
+//let chart;
 let update = false;
 //let count = 1;
 
@@ -179,7 +179,7 @@ const buildChart = async () => {
     ]
   };
 
-  chart = new Chart("#chart", {
+  const chart = new Chart("#chart", {
     title: "Population",
     data: chartData,
     type: "line",
