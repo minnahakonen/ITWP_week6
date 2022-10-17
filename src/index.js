@@ -1,4 +1,6 @@
 import "./styles.css";
+import { Chart } from "frappe-charts/dist/frappe-charts.min.esm"
+
 
 const submitButton = document.getElementById("submit-data");
 const inputField = document.getElementById("input-area");
