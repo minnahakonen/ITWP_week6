@@ -179,7 +179,7 @@ const buildChart = async () => {
     ]
   };
 
-  chart = new frappe.Chart("#chart", {
+  chart = new Chart("#chart", {
     title: "Population",
     data: chartData,
     type: "line",
@@ -230,7 +230,7 @@ const buildUpdatedChart = async () => {
   };
   //console.log(chartData2);
 
-  chart = new frappe.Chart("#chart", {
+  chart = new Chart("#chart", {
     title: "Population",
     data: chartData2,
     type: "line",
