@@ -1,13 +1,13 @@
 import "./styles.css";
-import { Chart } from "frappe-charts/dist/frappe-charts.min.esm"
-
+import { Chart } from "frappe-charts/dist/frappe-charts.min.esm";
 
 const submitButton = document.getElementById("submit-data");
 const inputField = document.getElementById("input-area");
 const addDataButton = document.getElementById("add-data");
 //const navigateLink = document.getElementById("navigation");
 const codeMap = new Map();
-//let chart;
+let chart;
+let vaestomaara;
 let update = false;
 //let count = 1;
 
@@ -77,7 +77,6 @@ const getData = async () => {
 
   const res = await fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
     body: JSON.stringify(jsonQuery)
   });
   if (!res.ok) {
@@ -127,7 +126,6 @@ const getUpdatedData = async () => {
 
   const res = await fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
     body: JSON.stringify(newJsonQuery)
   });
   if (!res.ok) {
@@ -151,7 +149,7 @@ const buildChart = async () => {
 
   const alue = Object.values(data.dimension.Alue.category.label);
   const vuosi = Object.values(data.dimension.Vuosi.category.label);
-  const tiedot = data.value;
+  vaestomaara = data.value;
   const vuodet = [];
 
   vuosi.forEach((element) => {
@@ -176,16 +174,16 @@ const buildChart = async () => {
       {
         name: "population",
         type: "line",
-        values: tiedot
+        values: vaestomaara
       }
     ]
   };
 
-  const chart = new Chart("#chart", {
+  chart = new Chart("#chart", {
     title: "Population",
     data: chartData,
     type: "line",
-    height: 450,
+    height: 400,
     colors: ["#eb5146"]
   });
 };
@@ -197,7 +195,7 @@ const buildUpdatedChart = async () => {
 
   const alue = Object.values(data2.dimension.Alue.category.label);
   const vuosi = Object.values(data2.dimension.Vuosi.category.label);
-  const vaestomaara = data2.value;
+  vaestomaara = data2.value;
   const vuodet = [];
   vuosi.forEach((element) => {
     vuodet.push(element);
@@ -231,44 +229,42 @@ const buildUpdatedChart = async () => {
     ]
   };
   //console.log(chartData2);
-
-  const chart2 = new Chart("#chart", {
+  //chart.update(chartData2);
+  chart = new Chart("#chart", {
     title: "Population",
     data: chartData2,
     type: "line",
-    height: 450,
+    height: 400,
     colors: ["#eb5146"]
   });
-
-  function calculatePrediction() {
-    let vahennettavat = [];
-    for (let i = vaestomaara.length - 1; i >= 0; i--) {
-      vahennettavat.push(vaestomaara[i]);
-    }
-    //console.log(vahennettavat);
-    let vahennetyt = [];
-    vahennetyt = vahennettavat.slice(1).map((v, i) => v - vahennettavat[i]);
-    //console.log(vahennetyt);
-    // reference: https://stackoverflow.com/questions/53260142/javascript-go-through-array-and-subtract-each-item-with-next
-    const sum = vahennetyt.reduce((accumulator, value) => {
-      return accumulator + value;
-    }, 0);
-    let meanDelta = sum / 21;
-    //console.log(meanDelta);
-    let lastPoint = vahennettavat.slice(0, 1);
-    let result = Math.round(lastPoint - meanDelta);
-    //console.log(result);
-
-    let label = "2022";
-    let valueFromEachDataset = [result];
-
-    chart2.addDataPoint(label, valueFromEachDataset);
-  }
-
-  addDataButton.addEventListener("click", function () {
-    calculatePrediction();
-  });
 };
+function calculatePrediction() {
+  let vahennettavat = [];
+  for (let i = vaestomaara.length - 1; i >= 0; i--) {
+    vahennettavat.push(vaestomaara[i]);
+  }
+  //console.log(vahennettavat);
+  let vahennetyt = [];
+  vahennetyt = vahennettavat.slice(1).map((v, i) => v - vahennettavat[i]);
+  //console.log(vahennetyt);
+  // reference: https://stackoverflow.com/questions/53260142/javascript-go-through-array-and-subtract-each-item-with-next
+  const sum = vahennetyt.reduce((accumulator, value) => {
+    return accumulator + value;
+  }, 0);
+  let meanDelta = sum / 21;
+  //console.log(meanDelta);
+  let lastPoint = vahennettavat.slice(0, 1);
+  let result = Math.round(lastPoint - meanDelta);
+  //console.log(result);
+
+  let label = "2022";
+  let valueFromEachDataset = [result];
+
+  chart.addDataPoint(label, valueFromEachDataset);
+}
+addDataButton.addEventListener("click", function () {
+  calculatePrediction();
+});
 
 getMunicipalities();
 if (update === false) {
