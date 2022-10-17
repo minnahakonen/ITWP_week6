@@ -172,7 +172,7 @@ const buildChart = async () => {
     labels: vuodet,
     datasets: [
       {
-        name: alue,
+        name: "population",
         type: "line",
         values: tiedot
       }
@@ -222,7 +222,7 @@ const buildUpdatedChart = async () => {
     //datasets: alue
     datasets: [
       {
-        name: alue,
+        name: inputField.value,
         type: "line",
         values: vaestomaara
       }
