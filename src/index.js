@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Chart } from "frappe-charts/dist/frappe-charts.min.esm"
+import { chart } from "frappe-charts/dist/frappe-charts.min.esm"
 
 
 const submitButton = document.getElementById("submit-data");
@@ -7,7 +7,7 @@ const inputField = document.getElementById("input-area");
 const addDataButton = document.getElementById("add-data");
 //const navigateLink = document.getElementById("navigation");
 const codeMap = new Map();
-let chart;
+//let chart;
 let update = false;
 //let count = 1;
 
