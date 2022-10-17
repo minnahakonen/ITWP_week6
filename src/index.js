@@ -77,6 +77,7 @@ const getData = async () => {
 
   const res = await fetch(url, {
     method: "POST",
+    headers: { "content-type": "application/json" },
     body: JSON.stringify(jsonQuery)
   });
   if (!res.ok) {
@@ -126,6 +127,7 @@ const getUpdatedData = async () => {
 
   const res = await fetch(url, {
     method: "POST",
+    headers: { "content-type": "application/json" },
     body: JSON.stringify(newJsonQuery)
   });
   if (!res.ok) {
@@ -183,7 +185,7 @@ const buildChart = async () => {
     title: "Population",
     data: chartData,
     type: "line",
-    height: 400,
+    height: 450,
     colors: ["#eb5146"]
   });
 };
@@ -234,7 +236,7 @@ const buildUpdatedChart = async () => {
     title: "Population",
     data: chartData2,
     type: "line",
-    height: 400,
+    height: 450,
     colors: ["#eb5146"]
   });
 
