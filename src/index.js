@@ -77,6 +77,7 @@ const getData = async () => {
 
   const res = await fetch(url, {
     method: "POST",
+    headers: {"content-type": "application/json"},
     body: JSON.stringify(jsonQuery)
   });
   if (!res.ok) {
@@ -126,6 +127,7 @@ const getUpdatedData = async () => {
 
   const res = await fetch(url, {
     method: "POST",
+    headers: {"content-type": "application/json"},
     body: JSON.stringify(newJsonQuery)
   });
   if (!res.ok) {
