@@ -185,7 +185,7 @@ const buildChart = async () => {
     title: "Population",
     data: chartData,
     type: "line",
-    height: 400,
+    height: 450,
     colors: ["#eb5146"]
   });
 };
@@ -236,7 +236,7 @@ const buildUpdatedChart = async () => {
     title: "Population",
     data: chartData2,
     type: "line",
-    height: 400,
+    height: 450,
     colors: ["#eb5146"]
   });
 };
